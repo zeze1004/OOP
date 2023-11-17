@@ -8,7 +8,7 @@ public class Bag {
 	private Invitation invitation;
 	private Ticket ticket;
 
-	// 손님 가방에는 티켓을 구매할 돈만 있거나, 초대권과 돈만 있는 경우 두 개뿐이므로 생성자로 제약
+
 	public Bag(Long amount) {
 		this.amount = amount;
 	}
@@ -18,25 +18,29 @@ public class Bag {
 		this.invitation = invitation;
 	}
 
+	public Long hold(Ticket ticket) {
+		if (hasInvitation()) {
+			setTicket(ticket);
+			return 0L;
+		} else {
+			setTicket(ticket);
+			minusAmount(ticket.getFee());
+			return ticket.getFee();
+		}
+	}
+
 	// 가방에 초대장 유무 확인
 	// 초대장이 없으면 티켓을 사야함
-	public boolean hasInvitation() {
+	private boolean hasInvitation() {
 		return invitation != null;
-	}
+	} // 내부 hold()에만 사용하므로 private로 변경
 
-	public boolean hasTicket() {
-		return ticket != null;
-	}
-
-	public void setTicket(Ticket ticket) {
+	private void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
 
-	public void minusAmount(Long amount) {
+	private void minusAmount(Long amount) {
 		this.amount -= amount;
 	}
 
-	public  void plusAmount(Long amount) {
-		this.amount += amount;
-	}
 }

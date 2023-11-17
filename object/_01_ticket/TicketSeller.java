@@ -11,7 +11,8 @@ public class TicketSeller {
 		this.ticketOffice = ticketOffice;
 	}
 
-	public TicketOffice getTicketOffice() {
-		return ticketOffice;
+	// 매표소는 관람객이 지불한 금액만 확인하면 됨
+	public void sellTo(Audience audience) {
+		ticketOffice.sellTicketTo(audience);
 	}
 }
